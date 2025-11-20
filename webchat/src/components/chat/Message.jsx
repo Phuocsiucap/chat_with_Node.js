@@ -1,4 +1,5 @@
 import React from 'react';
+import { getFullUrl } from '../../services/api';
 // import { useAuth } from '../../hooks/useAuth';
 
 // Helper để format kích thước file
@@ -31,13 +32,13 @@ const getFileIcon = (mimeType) => {
   return '📄';
 };
 
-const Message = ({ msg, chat, backendUrl = 'http://localhost:5000' }) => {
+const Message = ({ msg, chat }) => {
   const isSent = msg.isSent;
   const isImage = msg.type === 'file' && isImageFile(msg.mimeType);
   const isFile = msg.type === 'file' && !isImage;
   
   // Tạo URL đầy đủ cho file
-  const fileUrl = msg.filePath ? `${backendUrl}${msg.filePath}` : null;
+  const fileUrl = msg.filePath ? getFullUrl(msg.filePath) : null;
   
   return (
     <div className={`flex gap-3 mb-4 ${isSent ? 'flex-row-reverse' : ''}`}>

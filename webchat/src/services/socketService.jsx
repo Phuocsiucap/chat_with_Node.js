@@ -1,12 +1,14 @@
 import { io } from 'socket.io-client';
 
+const SERVER_URL = import.meta.env.VITE_SERVER_URL || 'http://localhost:5000';
+
 class SocketService {
   constructor() {
     this.socket = null;
   }
 
   connect() {
-    this.socket = io(import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000');
+    this.socket = io(import.meta.env.VITE_SOCKET_URL || SERVER_URL);
     return this.socket;
   }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { X, User, Bell, Image, FileText, Link, Shield, Trash2, ChevronDown, ChevronUp } from 'lucide-react';
 import chatInfoService from '../../services/chatInfoService';
+import { getFullUrl } from '../../services/api';
 
 const ChatInfoPanel = ({ chat, onClose, isMobile = false }) => {
   const [chatInfo, setChatInfo] = useState(null);
@@ -271,10 +272,10 @@ const ChatInfoPanel = ({ chat, onClose, isMobile = false }) => {
                     {sharedMedia.slice(0, 8).map(media => (
                       <div key={media._id} className="aspect-square rounded overflow-hidden bg-gray-200">
                         <img 
-                          src={`http://localhost:5000${media.filePath}`} 
+                          src={getFullUrl(media.filePath)} 
                           alt={media.originalFileName}
                           className="w-full h-full object-cover cursor-pointer hover:opacity-80" 
-                          onClick={() => window.open(`http://localhost:5000${media.filePath}`, '_blank')}
+                          onClick={() => window.open(getFullUrl(media.filePath), '_blank')}
                           onError={(e) => {
                             e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100"%3E%3Crect fill="%23ddd" width="100" height="100"/%3E%3Ctext fill="%23999" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3ELỗi%3C/text%3E%3C/svg%3E';
                           }}
@@ -333,7 +334,7 @@ const ChatInfoPanel = ({ chat, onClose, isMobile = false }) => {
                           </div>
                         </div>
                         <a 
-                          href={`http://localhost:5000${file.filePath}`}
+                          href={getFullUrl(file.filePath)}
                           download={file.originalFileName}
                           className="text-blue-600 hover:text-blue-700"
                           onClick={(e) => e.stopPropagation()}
